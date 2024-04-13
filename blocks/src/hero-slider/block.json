@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/hero-slider",
+	"version": "1.0.0",
+	"title": "Hero Slider",
+	"category": "media",
+	"icon": "image",
+	"description": "Hero image slider with transitions.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"images": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"url": {
+						"type": "string",
+						"default": ""
+					},
+					"id": {
+						"type": "number",
+						"default": 0
+					},
+					"alt": {
+						"type": "string",
+						"default": ""
+					}
+				}
+			}
+		}
+	},
+	"textdomain": "hero-slider",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
