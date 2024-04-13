@@ -30,17 +30,16 @@ console.log("Hello World! (from create-block-hero-slider block)");
 /* eslint-enable no-console */
 
 const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
-const dataAttribute = slider[0].dataset.duration;
-console.log(dataAttribute);
+const duration = slider[0].dataset.duration;
 const images = document.querySelectorAll('.hero-slider-image');
 
 // Calculate the animation duration and delay
 const totalImages = images.length;
-const animationDuration = totalImages * dataAttribute; // 2 seconds per image
+const animationDuration = totalImages * duration; // seconds per image
 
 // Apply the animation to each image
 images.forEach((image, index) => {
-  const animationDelay = (totalImages - index - 1) * dataAttribute; // 2 seconds delay per image
+  const animationDelay = (totalImages - index - 1) * duration; // seconds delay per image
 
   image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
 });
