@@ -20,9 +20,6 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
  
-/* eslint-disable no-console */
-console.log("Hello World! (from create-block-hero-slider block)");
-/* eslint-enable no-console */
 
 const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
 const duration = slider[0].dataset.duration;
