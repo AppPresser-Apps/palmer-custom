@@ -74,23 +74,24 @@ function Edit({
     });
   };
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    setTransition();
+  }, []);
+  const setTransition = () => {
     // Get all the images
     const images = document.querySelectorAll('.hero-slider-image');
 
     // Calculate the animation duration and delay
     const totalImages = images.length;
-    const animationDuration = totalImages * 5; // seconds per image
+    const animationDuration = totalImages * attributes.duration; // seconds per image
 
     // Apply the animation to each image
     images.forEach((image, index) => {
-      const animationDelay = (totalImages - index - 1) * 5; // seconds delay per image
+      const animationDelay = (totalImages - index - 1) * attributes.duration; // seconds delay per image
       image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
     });
-  }, []);
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-      className: 'hero-slider-wrap'
-    })
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Images', 'apppresser-blocks'),
     initialOpen: true
@@ -109,6 +110,17 @@ function Edit({
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Dimensions', 'apppresser-blocks')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+    label: "Duration",
+    value: attributes.duration,
+    onChange: newDuration => {
+      setAttributes({
+        duration: newDuration
+      });
+      setTransition();
+    },
+    min: 1,
+    max: 30
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
     label: "Height",
     value: attributes.height,
     onChange: newHeight => setAttributes({
@@ -258,7 +270,8 @@ function save({
 }) {
   const images = attributes.images || [];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
+    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save(),
+    "data-duration": attributes.duration
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     class: "hero-slider",
     style: {
@@ -372,7 +385,7 @@ module.exports = window["wp"]["i18n"];
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"apppresser/hero-slider","version":"1.0.0","title":"Hero Slider","category":"media","icon":"format-gallery","description":"Hero image slider with transitions.","example":{},"supports":{"html":false},"attributes":{"height":{"type":"number","default":400},"opacity":{"type":"number","default":0.5},"color":{"type":"object","default":{"r":0,"g":0,"b":0,"a":0}},"images":{"type":"array","default":[],"items":{"type":"object","properties":{"url":{"type":"string","default":""},"id":{"type":"number","default":0},"alt":{"type":"string","default":""}}}}},"textdomain":"hero-slider","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"apppresser/hero-slider","version":"1.0.0","title":"Hero Slider","category":"media","icon":"format-gallery","description":"Hero image slider with transitions.","example":{},"supports":{"html":false},"attributes":{"height":{"type":"number","default":400},"duration":{"type":"number","default":5},"opacity":{"type":"number","default":0.5},"color":{"type":"object","default":{"r":0,"g":0,"b":0,"a":0}},"images":{"type":"array","default":[],"items":{"type":"object","properties":{"url":{"type":"string","default":""},"id":{"type":"number","default":0},"alt":{"type":"string","default":""}}}}},"textdomain":"hero-slider","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

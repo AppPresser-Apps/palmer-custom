@@ -44,22 +44,26 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
 	useEffect(() => {
-        // Get all the images
-        const images = document.querySelectorAll('.hero-slider-image');
-
-        // Calculate the animation duration and delay
-        const totalImages = images.length;
-        const animationDuration = totalImages * 5; // seconds per image
-
-        // Apply the animation to each image
-        images.forEach((image, index) => {
-            const animationDelay = (totalImages - index - 1) * 5; // seconds delay per image
-            image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-        });
+		setTransition();
     }, []);
 
+	const setTransition = () => {
+		// Get all the images
+		const images = document.querySelectorAll('.hero-slider-image');
+
+		// Calculate the animation duration and delay
+		const totalImages = images.length;
+		const animationDuration = totalImages * attributes.duration; // seconds per image
+
+		// Apply the animation to each image
+		images.forEach((image, index) => {
+			const animationDelay = (totalImages - index - 1) * attributes.duration; // seconds delay per image
+			image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+		});
+	}
+
 	return (
-		<div { ...useBlockProps({ className: 'hero-slider-wrap' }) }>
+		<div { ...useBlockProps() }>
 			<InspectorControls>
 				<PanelBody
 					title={__('Images', 'apppresser-blocks')}
@@ -81,6 +85,13 @@ export default function Edit({ attributes, setAttributes }) {
 					</MediaUploadCheck>
 				</PanelBody>
 				<PanelBody title={__('Dimensions', 'apppresser-blocks')}>
+						<RangeControl
+                            label="Duration"
+                            value={ attributes.duration }
+                            onChange={ ( newDuration ) => { setAttributes({ duration: newDuration }); setTransition();} }
+                            min={ 1 }
+                            max={ 30 }
+                        />
                         <RangeControl
                             label="Height"
                             value={ attributes.height }

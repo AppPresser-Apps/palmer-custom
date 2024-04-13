@@ -16,6 +16,10 @@
 			"type": "number",
 			"default": 400
 		},
+		"duration": {
+			"type": "number",
+			"default": 5
+		},
 		"opacity": {
 			"type": "number",
 			"default": 0.5

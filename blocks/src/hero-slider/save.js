@@ -20,7 +20,7 @@ export default function save({attributes}) {
 	const images = attributes.images || [];
 
 	return (
-		<div { ...useBlockProps.save() }>
+		<div { ...useBlockProps.save() } data-duration={attributes.duration}>
 			<div class="hero-slider" style={{height: `${attributes.height}px`}}>
 			{ images.map( ( img ) => (
                 <div class="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
