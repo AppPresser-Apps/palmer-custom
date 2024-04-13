@@ -23,3 +23,16 @@
 /* eslint-disable no-console */
 console.log("Hello World! (from create-block-hero-slider block)");
 /* eslint-enable no-console */
+
+const images = document.querySelectorAll('.hero-slider-image');
+
+// Calculate the animation duration and delay
+const totalImages = images.length;
+const animationDuration = totalImages * 5; // 2 seconds per image
+
+// Apply the animation to each image
+images.forEach((image, index) => {
+    const animationDelay = (totalImages - index - 1) * 5; // 2 seconds delay per image
+
+    image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+});

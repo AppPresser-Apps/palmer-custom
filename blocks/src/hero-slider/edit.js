@@ -13,7 +13,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { InnerBlocks, useBlockProps, MediaUploadCheck, MediaUpload, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, Button, RangeControl, ColorPicker } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -35,15 +35,28 @@ export default function Edit({ attributes, setAttributes }) {
 
 	// const { height, opacity, color } = attributes;
 
-	const images = attributes.images || [];
-
 	const removeMedia = () => {
 		setAttributes( { mediaId: 0 } );
 	};
 
     const onSelectMedia = ( newImages ) => {
-        setAttributes( { images: [...newImages] } );
+        setAttributes( { images: [...newImages].reverse() } );
     };
+
+	useEffect(() => {
+        // Get all the images
+        const images = document.querySelectorAll('.hero-slider-image');
+
+        // Calculate the animation duration and delay
+        const totalImages = images.length;
+        const animationDuration = totalImages * 5; // seconds per image
+
+        // Apply the animation to each image
+        images.forEach((image, index) => {
+            const animationDelay = (totalImages - index - 1) * 5; // seconds delay per image
+            image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+        });
+    }, []);
 
 	return (
 		<div { ...useBlockProps({ className: 'hero-slider-wrap' }) }>
@@ -55,7 +68,7 @@ export default function Edit({ attributes, setAttributes }) {
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={onSelectMedia}
-							value={ images.map( ( img ) => img.id ) }
+							value={ attributes.images.map( ( img ) => img.id ) }
 							allowedTypes={ ['image'] }
 							multiple
 							gallery
@@ -94,7 +107,7 @@ export default function Edit({ attributes, setAttributes }) {
             	</PanelBody>
 			</InspectorControls>
 			<div class="hero-slider" style={{height: `${attributes.height}px`}}>
-            { images.map( ( img ) => (
+            { attributes.images.map( ( img ) => (
                 <div class="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
             ) ) }
 			</div>

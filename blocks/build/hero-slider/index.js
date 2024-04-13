@@ -20,8 +20,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./blocks/src/hero-slider/editor.scss");
 
 /**
@@ -63,7 +63,6 @@ function Edit({
 }) {
   // const { height, opacity, color } = attributes;
 
-  const images = attributes.images || [];
   const removeMedia = () => {
     setAttributes({
       mediaId: 0
@@ -71,9 +70,23 @@ function Edit({
   };
   const onSelectMedia = newImages => {
     setAttributes({
-      images: [...newImages]
+      images: [...newImages].reverse()
     });
   };
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    // Get all the images
+    const images = document.querySelectorAll('.hero-slider-image');
+
+    // Calculate the animation duration and delay
+    const totalImages = images.length;
+    const animationDuration = totalImages * 5; // seconds per image
+
+    // Apply the animation to each image
+    images.forEach((image, index) => {
+      const animationDelay = (totalImages - index - 1) * 5; // seconds delay per image
+      image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+    });
+  }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
       className: 'hero-slider-wrap'
@@ -83,7 +96,7 @@ function Edit({
     initialOpen: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUploadCheck, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
     onSelect: onSelectMedia,
-    value: images.map(img => img.id),
+    value: attributes.images.map(img => img.id),
     allowedTypes: ['image'],
     multiple: true,
     gallery: true,
@@ -127,7 +140,7 @@ function Edit({
     style: {
       height: `${attributes.height}px`
     }
-  }, images.map(img => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, attributes.images.map(img => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     class: "hero-slider-image",
     key: img.id,
     style: {
@@ -333,13 +346,13 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
-/***/ "@wordpress/data":
-/*!******************************!*\
-  !*** external ["wp","data"] ***!
-  \******************************/
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 /***/ ((module) => {
 
-module.exports = window["wp"]["data"];
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
