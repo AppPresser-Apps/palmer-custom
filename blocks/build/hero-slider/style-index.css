@@ -6,14 +6,13 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.hero-slider-wrap {
+.wp-block-apppresser-hero-slider {
   position: relative;
 }
 
 .hero-slider {
   position: relative;
   overflow: hidden;
-  min-height: 400px;
 }
 
 .hero-slider .hero-slider-image {
@@ -33,7 +32,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .hero-slider-inner-blocks {

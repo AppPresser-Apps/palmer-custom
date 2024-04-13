@@ -20,13 +20,13 @@ export default function save({attributes}) {
 	const images = attributes.images || [];
 
 	return (
-		<div class="hero-slider-wrap" { ...useBlockProps.save() }>
-			<div class="hero-slider">
+		<div { ...useBlockProps.save() }>
+			<div class="hero-slider" style={{height: `${attributes.height}px`}}>
 			{ images.map( ( img ) => (
                 <div class="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
             ) ) }
 			</div>
-			<div class="hero-slider-overlay"></div>
+			<div class="hero-slider-overlay" style={{backgroundColor: `rgba( ${attributes.color.r},${attributes.color.g},${attributes.color.b},${attributes.opacity})`}}></div>
 			<div class="hero-slider-inner-blocks"><InnerBlocks.Content /></div>
 		</div>
 	);

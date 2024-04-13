@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { InnerBlocks, useBlockProps, MediaUploadCheck, MediaUpload, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, Button } from '@wordpress/components';
+import { PanelBody, Button, RangeControl, ColorPicker } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 
 /**
@@ -33,6 +33,8 @@ import './editor.scss';
  */
 export default function Edit({ attributes, setAttributes }) {
 
+	// const { height, opacity, color } = attributes;
+
 	const images = attributes.images || [];
 
 	const removeMedia = () => {
@@ -44,37 +46,76 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
 	return (
-		<div class="hero-slider-wrap" { ...useBlockProps() }>
+		<div { ...useBlockProps({ className: 'hero-slider-wrap' }) }>
 			<InspectorControls>
 				<PanelBody
-					title={__('Select Slider Images', 'awp')}
+					title={__('Images', 'apppresser-blocks')}
 					initialOpen={ true }
 				>
-					<div className="editor-post-featured-image">
-						<MediaUploadCheck>
-							<MediaUpload
-								onSelect={onSelectMedia}
-								value={ images.map( ( img ) => img.id ) }
-								allowedTypes={ ['image'] }
-								multiple
-								gallery
-								render={({open}) => (
-									<Button onClick={ open }>
-										Upload Images
-									</Button>
-								)}
-							/>
-						</MediaUploadCheck>
-					</div>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={onSelectMedia}
+							value={ images.map( ( img ) => img.id ) }
+							allowedTypes={ ['image'] }
+							multiple
+							gallery
+							render={({open}) => (
+								<Button variant="primary" onClick={ open }>
+									Select Images
+								</Button>
+							)}
+						/>
+					</MediaUploadCheck>
 				</PanelBody>
+				<PanelBody title={__('Dimensions', 'apppresser-blocks')}>
+                        <RangeControl
+                            label="Height"
+                            value={ attributes.height }
+                            onChange={ ( newHeight ) => setAttributes({ height: newHeight }) }
+                            min={ 100 }
+                            max={ 1000 }
+                        />
+                </PanelBody>
+				<PanelBody title={__('Styles', 'apppresser-blocks')}>
+					<RangeControl
+						label={__('Overlay Opacity', 'apppresser-blocks')}
+						value={ attributes.opacity }
+						onChange={ ( newOpacity ) => setAttributes({ opacity: newOpacity }) }
+						min={ 0 }
+						max={ 1 }
+						step={ 0.01 }
+					/>
+					<label>{__('Overlay Color', 'apppresser-blocks')}</label>
+					<ColorPicker
+						color={ rgbaToHex(attributes.color) }
+						onChangeComplete={ ( newColor ) => { console.log(newColor), setAttributes({ color: newColor.rgb }); } }
+						disableAlpha
+					/>
+            	</PanelBody>
 			</InspectorControls>
-			<div class="hero-slider">
+			<div class="hero-slider" style={{height: `${attributes.height}px`}}>
             { images.map( ( img ) => (
                 <div class="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
             ) ) }
 			</div>
-			<div class="hero-slider-overlay"></div>
+			<div class="hero-slider-overlay" style={{backgroundColor: `rgba( ${attributes.color.r},${attributes.color.g},${attributes.color.b},${attributes.opacity})`}}></div>
 			<div class="hero-slider-inner-blocks"><InnerBlocks /></div>
 		</div>
 	);
+}
+
+
+function rgbaToHex(rgba) {
+    let r = rgba.r.toString(16);
+    let g = rgba.g.toString(16);
+    let b = rgba.b.toString(16);
+
+    if (r.length == 1)
+        r = "0" + r;
+    if (g.length == 1)
+        g = "0" + g;
+    if (b.length == 1)
+        b = "0" + b;
+
+    return "#" + r + g + b;
 }
