@@ -14,7 +14,7 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip"
 	},
-	"files": [ "blocks", "plugin-update" ],
+	"files": [ "blocks/build", "plugin-update" ],
 	"devDependencies": {
 		"@wordpress/scripts": "^27.6.0"
 	}
