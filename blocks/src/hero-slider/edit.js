@@ -38,43 +38,25 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
 	const onDurationChange = ( newDuration ) => {
-		console.log('aaaaa', newDuration);
         setAttributes({ duration: newDuration });
-		setTransition();
     };
 
-	useEffect(() => {
-		setTimeout(() => {
-			setTransition();
-		}, 1000);
-		
-    }, []);
+    useEffect(() => {
+        // Get all the images
+        const images = document.querySelectorAll('.hero-slider-image');
 
-	const setTransition = () => {
+        // Calculate the animation duration and delay
+        const totalImages = images.length;
+        const animationDuration = totalImages * 2; // 2 seconds per image
 
-		console.log('setting transition');
+        // Apply the animation to each image
+        images.forEach((image, index) => {
+            const animationDelay = (totalImages - index - 1) * 2; // 2 seconds delay per image
 
-		// Get all the images
-		const slider = document.querySelectorAll('.hero-slider');
-		const images = document.querySelectorAll('.hero-slider-image');
+            image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+        });
+    }, [attributes.images]);
 
-		console.log(slider);
-		console.log(images);
-
-		if (images.length === 0) {
-			return;
-		}
-
-		// Calculate the animation duration and delay
-		const totalImages = images.length;
-		const animationDuration = totalImages * attributes.duration; // seconds per image
-
-		// Apply the animation to each image
-		images.forEach((image, index) => {
-			const animationDelay = (totalImages - index - 1) * attributes.duration; // seconds delay per image
-			image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-		});
-	}
 
 	return (
 		<div { ...useBlockProps() }>
