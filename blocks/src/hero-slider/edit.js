@@ -46,7 +46,7 @@ export default function Edit({ attributes, setAttributes }) {
 	useEffect(() => {
 		setTimeout(() => {
 			setTransition();
-		}, 500);
+		}, 1000);
 		
     }, []);
 
@@ -55,8 +55,10 @@ export default function Edit({ attributes, setAttributes }) {
 		console.log('setting transition');
 
 		// Get all the images
+		const slider = document.querySelectorAll('.hero-slider');
 		const images = document.querySelectorAll('.hero-slider-image');
 
+		console.log(slider);
 		console.log(images);
 
 		if (images.length === 0) {
