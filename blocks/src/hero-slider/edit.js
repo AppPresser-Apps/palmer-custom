@@ -38,7 +38,7 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
 	const onDurationChange = ( newDuration ) => {
-		alert('aaaaa');
+		console.log('aaaaa', newDuration);
         setAttributes({ duration: newDuration });
 		setTransition();
     };
@@ -85,7 +85,7 @@ export default function Edit({ attributes, setAttributes }) {
 							gallery
 							render={({open}) => (
 								<Button variant="primary" onClick={ open }>
-									Select Images ffff
+									Select Images
 								</Button>
 							)}
 						/>
