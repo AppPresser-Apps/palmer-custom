@@ -45,10 +45,18 @@
 @keyframes imgFade {
   0%, 20% {
     opacity: 1;
-  }
+  } /* At the start and 20% of the animation, the element is fully visible */
   25%, 100% {
     opacity: 0;
-  }
+  } /* At 25% and 100% of the animation, the element is invisible */
+}
+@keyframes imgFadeOdd {
+  0%, 100% {
+    opacity: 1;
+  } /* At the start and end of the animation, the element is fully visible */
+  33%, 66% {
+    opacity: 0;
+  } /* At 33% and 66% of the animation, the element is invisible */
 }
 
 /*# sourceMappingURL=style-index.css.map*/

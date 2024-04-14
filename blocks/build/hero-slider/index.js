@@ -63,29 +63,23 @@ function Edit({
 }) {
   const onSelectMedia = newImages => {
     setAttributes({
-      images: [...newImages].reverse()
+      images: [...newImages]
     });
   };
   const onDurationChange = newDuration => {
-    setAttributes({
-      duration: newDuration
-    });
+    setTimeout(() => {
+      setAttributes({
+        duration: newDuration
+      });
+    }, 500);
   };
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
-    // Get all the images
-    const images = document.querySelectorAll('.hero-slider-image');
-
-    // Calculate the animation duration and delay
-    const totalImages = images.length;
-    const animationDuration = totalImages * 2; // 2 seconds per image
-
-    // Apply the animation to each image
-    images.forEach((image, index) => {
-      const animationDelay = (totalImages - index - 1) * 2; // 2 seconds delay per image
-
-      image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-    });
-  }, [attributes.images]);
+  const totalImages = attributes.images.length;
+  const animationDuration = totalImages * attributes.duration; // seconds per image
+  const isOdd = totalImages % 2 === 1;
+  const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
+  console.log('totalImages', totalImages);
+  console.log('animationDuration', animationDuration);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {}, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
@@ -108,9 +102,9 @@ function Edit({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
     label: "Duration",
     value: attributes.duration,
-    onChange: onDurationChange,
-    min: 1,
-    max: 30
+    onChange: onDurationChange
+    // min={ 1 }
+    // max={ 30 }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
     label: "Height",
     value: attributes.height,
@@ -132,22 +126,21 @@ function Edit({
     step: 0.01
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Overlay Color', 'apppresser-blocks')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPicker, {
     color: rgbaToHex(attributes.color),
-    onChangeComplete: newColor => {
-      console.log(newColor), setAttributes({
-        color: newColor.rgb
-      });
-    },
+    onChangeComplete: newColor => setAttributes({
+      color: newColor.rgb
+    }),
     disableAlpha: true
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider",
     style: {
       height: `${attributes.height}px`
     }
-  }, attributes.images.map(img => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, attributes.images.map((img, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-image",
-    key: img.id,
+    key: index,
     style: {
-      backgroundImage: `url(${img.url})`
+      backgroundImage: `url(${img.url})`,
+      animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s`
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-overlay",
@@ -260,6 +253,10 @@ function save({
   attributes
 }) {
   const images = attributes.images || [];
+  const totalImages = attributes.images.length;
+  const animationDuration = totalImages * attributes.duration; // seconds per image
+  const isOdd = totalImages % 2 === 1;
+  const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save(),
     "data-duration": attributes.duration
@@ -268,11 +265,13 @@ function save({
     style: {
       height: `${attributes.height}px`
     }
-  }, images.map(img => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, images.map((img, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-image",
     key: img.id,
     style: {
-      backgroundImage: `url(${img.url})`
+      backgroundImage: `url(${img.url})`,
+      height: `${attributes.height}px`,
+      animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s `
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-overlay",

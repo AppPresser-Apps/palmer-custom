@@ -25,20 +25,21 @@ var __webpack_exports__ = {};
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
-const duration = slider[0].dataset.duration;
-const images = document.querySelectorAll('.hero-slider-image');
+// const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
+// const duration = slider[0].dataset.duration;
 
-// Calculate the animation duration and delay
-const totalImages = images.length;
-const animationDuration = totalImages * duration; // seconds per image
+// const images = document.querySelectorAll('.hero-slider-image');
 
-// Apply the animation to each image
-images.forEach((image, index) => {
-  const animationDelay = (totalImages - index - 1) * duration; // seconds delay per image
+// // Calculate the animation duration and delay
+// const totalImages = images.length;
+// const animationDuration = totalImages * duration; // seconds per image
 
-  image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-});
+// // Apply the animation to each image
+// images.forEach((image, index) => {
+//     const animationDelay = (totalImages - index - 1) * duration; // seconds delay per image
+
+//     image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+// });
 /******/ })()
 ;
 //# sourceMappingURL=view.js.map

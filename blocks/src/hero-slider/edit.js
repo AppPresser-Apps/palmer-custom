@@ -34,28 +34,26 @@ import './editor.scss';
 export default function Edit({ attributes, setAttributes }) {
 
     const onSelectMedia = ( newImages ) => {
-        setAttributes({ images: [...newImages].reverse() });
+        setAttributes({ images: [...newImages] });
     };
 
 	const onDurationChange = ( newDuration ) => {
-        setAttributes({ duration: newDuration });
+		setTimeout(() => {
+			setAttributes({ duration: newDuration });
+		}, 500);
+        
     };
 
+	const totalImages = attributes.images.length;
+	const animationDuration = totalImages * attributes.duration; // seconds per image
+	const isOdd = totalImages % 2 === 1;
+	const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
+
+	console.log('totalImages', totalImages);
+	console.log('animationDuration', animationDuration);
+
     useEffect(() => {
-        // Get all the images
-        const images = document.querySelectorAll('.hero-slider-image');
-
-        // Calculate the animation duration and delay
-        const totalImages = images.length;
-        const animationDuration = totalImages * 2; // 2 seconds per image
-
-        // Apply the animation to each image
-        images.forEach((image, index) => {
-            const animationDelay = (totalImages - index - 1) * 2; // 2 seconds delay per image
-
-            image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-        });
-    }, [attributes.images]);
+    }, []);
 
 
 	return (
@@ -85,8 +83,8 @@ export default function Edit({ attributes, setAttributes }) {
                             label="Duration"
                             value={ attributes.duration }
                             onChange={onDurationChange}
-                            min={ 1 }
-                            max={ 30 }
+                            // min={ 1 }
+                            // max={ 30 }
                         />
                         <RangeControl
                             label="Height"
@@ -108,14 +106,14 @@ export default function Edit({ attributes, setAttributes }) {
 					<label>{__('Overlay Color', 'apppresser-blocks')}</label>
 					<ColorPicker
 						color={ rgbaToHex(attributes.color) }
-						onChangeComplete={ ( newColor ) => { console.log(newColor), setAttributes({ color: newColor.rgb }); } }
+						onChangeComplete={ ( newColor ) => setAttributes({ color: newColor.rgb }) }
 						disableAlpha
 					/>
             	</PanelBody>
 			</InspectorControls>
 			<div className="hero-slider" style={{height: `${attributes.height}px`}}>
-            { attributes.images.map( ( img ) => (
-                <div className="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
+            { attributes.images.map( (img, index) => (
+                <div className="hero-slider-image" key={index} style={{backgroundImage: `url(${img.url})`, animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s` }}></div>
             ) ) }
 			</div>
 			<div className="hero-slider-overlay" style={{backgroundColor: `rgba( ${attributes.color.r},${attributes.color.g},${attributes.color.b},${attributes.opacity})`}}></div>
@@ -123,7 +121,6 @@ export default function Edit({ attributes, setAttributes }) {
 		</div>
 	);
 }
-
 
 function rgbaToHex(rgba) {
     let r = rgba.r.toString(16);

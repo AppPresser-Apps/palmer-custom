@@ -21,18 +21,18 @@
  */
  
 
-const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
-const duration = slider[0].dataset.duration;
+// const slider = document.querySelectorAll('.wp-block-apppresser-hero-slider');
+// const duration = slider[0].dataset.duration;
 
-const images = document.querySelectorAll('.hero-slider-image');
+// const images = document.querySelectorAll('.hero-slider-image');
 
-// Calculate the animation duration and delay
-const totalImages = images.length;
-const animationDuration = totalImages * duration; // seconds per image
+// // Calculate the animation duration and delay
+// const totalImages = images.length;
+// const animationDuration = totalImages * duration; // seconds per image
 
-// Apply the animation to each image
-images.forEach((image, index) => {
-    const animationDelay = (totalImages - index - 1) * duration; // seconds delay per image
+// // Apply the animation to each image
+// images.forEach((image, index) => {
+//     const animationDelay = (totalImages - index - 1) * duration; // seconds delay per image
 
-    image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
-});
+//     image.style.animation = `imgFade ${animationDuration}s ease-in-out infinite ${animationDelay}s`;
+// });

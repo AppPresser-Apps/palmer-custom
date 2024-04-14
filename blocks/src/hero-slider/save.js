@@ -19,11 +19,20 @@ export default function save({attributes}) {
 
 	const images = attributes.images || [];
 
+	const totalImages = attributes.images.length;
+	const animationDuration = totalImages * attributes.duration; // seconds per image
+	const isOdd = totalImages % 2 === 1;
+	const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
+
 	return (
 		<div { ...useBlockProps.save() } data-duration={attributes.duration}>
 			<div className="hero-slider" style={{height: `${attributes.height}px`}}>
-			{ images.map( ( img ) => (
-                <div className="hero-slider-image" key={ img.id } style={{backgroundImage: `url(${img.url})`}}></div>
+			{ images.map( ( img, index ) => (
+                <div className="hero-slider-image" key={ img.id } style={{
+					backgroundImage: `url(${img.url})`, 
+					height: `${attributes.height}px`, 
+					animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s ` 
+				}}></div>
             ) ) }
 			</div>
 			<div className="hero-slider-overlay" style={{backgroundColor: `rgba( ${attributes.color.r},${attributes.color.g},${attributes.color.b},${attributes.opacity})`}}></div>
