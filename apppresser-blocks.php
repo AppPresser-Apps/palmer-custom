@@ -4,7 +4,7 @@
  * Description:       AppPresser Blocks is a collection of custom blocks for the WordPress block editor.
  * Requires at least: 6.5
  * Requires PHP:      7.0
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            AppPresser
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'APPPRESSER_BLOCKS_VERSION', '1.0.0' );
+define( 'APPPRESSER_BLOCKS_VERSION', '1.0.1' );
 define( 'APPPRESSER_BLOCKS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'APPPRESSER_BLOCKS_URL', plugins_url( basename( __DIR__ ) ) );
 define( 'APPPRESSER_BLOCKS_SLUG', plugin_basename( __FILE__ ) );
