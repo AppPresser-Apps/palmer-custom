@@ -1,1 +1,0 @@
-(()=>{const e=document.querySelectorAll(".wp-block-apppresser-hero-slider")[0].dataset.duration,t=document.querySelectorAll(".hero-slider-image"),o=t.length,r=o*e;t.forEach(((t,i)=>{const l=(o-i-1)*e;t.style.animation=`imgFade ${r}s ease-in-out infinite ${l}s`}))})();

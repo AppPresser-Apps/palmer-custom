@@ -2,7 +2,6 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "apppresser/hero-slider",
-	"version": "1.0.1",
 	"title": "Hero Slider",
 	"category": "media",
 	"icon": "format-gallery",
