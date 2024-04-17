@@ -2,7 +2,7 @@
 Contributors:      AppPresser
 Tags:              block
 Tested up to:      6.5
-Stable tag:        1.0.6
+Stable tag:        1.0.7
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
