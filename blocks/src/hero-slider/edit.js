@@ -45,12 +45,6 @@ export default function Edit({ attributes, setAttributes }) {
     };
 
 	const totalImages = attributes.images.length;
-	const animationDuration = totalImages * attributes.duration; // seconds per image
-	const isOdd = totalImages % 2 === 1;
-	const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
-
-	console.log('totalImages', totalImages);
-	console.log('animationDuration', animationDuration);
 
     useEffect(() => {
     }, []);
@@ -113,7 +107,12 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 			<div className="hero-slider" style={{height: `${attributes.height}px`}}>
             { attributes.images.map( (img, index) => (
-                <div className="hero-slider-image" key={index} style={{backgroundImage: `url(${img.url})`, animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s` }}></div>
+                <div className="hero-slider-image" key={index} style={{
+					backgroundImage: `url(${img.url})`, 
+					height: `${attributes.height}px`, 
+					animation: `imgFade ${attributes.duration}s infinite `, 
+					animationDelay: `-${attributes.duration / totalImages * index}s`
+				}}></div>
             ) ) }
 			</div>
 			<div className="hero-slider-overlay" style={{backgroundColor: `rgba( ${attributes.color.r},${attributes.color.g},${attributes.color.b},${attributes.opacity})`}}></div>

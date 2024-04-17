@@ -74,11 +74,6 @@ function Edit({
     }, 500);
   };
   const totalImages = attributes.images.length;
-  const animationDuration = totalImages * attributes.duration; // seconds per image
-  const isOdd = totalImages % 2 === 1;
-  const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
-  console.log('totalImages', totalImages);
-  console.log('animationDuration', animationDuration);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {}, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
@@ -140,7 +135,9 @@ function Edit({
     key: index,
     style: {
       backgroundImage: `url(${img.url})`,
-      animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s`
+      height: `${attributes.height}px`,
+      animation: `imgFade ${attributes.duration}s infinite `,
+      animationDelay: `-${attributes.duration / totalImages * index}s`
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-overlay",
@@ -254,9 +251,6 @@ function save({
 }) {
   const images = attributes.images || [];
   const totalImages = attributes.images.length;
-  const animationDuration = totalImages * attributes.duration; // seconds per image
-  const isOdd = totalImages % 2 === 1;
-  const animation = isOdd ? 'imgFadeOdd' : 'imgFade';
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save(),
     "data-duration": attributes.duration
@@ -271,7 +265,8 @@ function save({
     style: {
       backgroundImage: `url(${img.url})`,
       height: `${attributes.height}px`,
-      animation: `${animation} ${animationDuration}s ease-in-out infinite ${(totalImages - index - 1) * attributes.duration}s `
+      animation: `imgFade ${attributes.duration}s infinite `,
+      animationDelay: `-${attributes.duration / totalImages * index}s`
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "hero-slider-overlay",
