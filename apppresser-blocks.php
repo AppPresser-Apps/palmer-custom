@@ -4,7 +4,7 @@
  * Description:       AppPresser Blocks is a collection of custom blocks for the WordPress block editor.
  * Requires at least: 6.5
  * Requires PHP:      7.0
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            AppPresser
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,7 +33,7 @@ function load_apppresser_blocks_block_init() {
 	// Register blocks in the format $dir => $render_callback.
 	$blocks = array(
 		'hero-slider'        => '',
-
+		'group-parallax'        => '',
 	);
 
 	foreach ( $blocks as $dir => $render_callback ) {

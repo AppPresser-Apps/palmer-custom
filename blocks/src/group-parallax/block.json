@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "apppressser/group-parallax",
+	"version": "0.1.0",
+	"title": "Group Parallax",
+	"category": "layout",
+	"icon": "tide",
+	"description": "Group block with a parallax background.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"height": {
+			"type": "number",
+			"default": 400
+		},
+		"image": {
+			"type": "string",
+			"default": ""
+		},
+		"imageID": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"textdomain": "group-parallax",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}
