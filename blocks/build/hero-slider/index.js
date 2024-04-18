@@ -136,7 +136,7 @@ function Edit({
     style: {
       backgroundImage: `url(${img.url})`,
       height: `${attributes.height}px`,
-      animation: `imgFade ${attributes.duration}s infinite `,
+      animation: `imgFade ${attributes.duration}s infinite, kenBurnsEffect 40s infinite ease-in-out `,
       animationDelay: `-${attributes.duration / totalImages * index}s`
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -265,7 +265,7 @@ function save({
     style: {
       backgroundImage: `url(${img.url})`,
       height: `${attributes.height}px`,
-      animation: `imgFade ${attributes.duration}s infinite `,
+      animation: `imgFade ${attributes.duration}s infinite, kenBurnsEffect 40s infinite ease-in-out `,
       animationDelay: `-${attributes.duration / totalImages * index}s`
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {

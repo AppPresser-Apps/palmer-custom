@@ -110,7 +110,7 @@ export default function Edit({ attributes, setAttributes }) {
                 <div className="hero-slider-image" key={index} style={{
 					backgroundImage: `url(${img.url})`, 
 					height: `${attributes.height}px`, 
-					animation: `imgFade ${attributes.duration}s infinite `, 
+					animation: `imgFade ${attributes.duration}s infinite, kenBurnsEffect 40s infinite ease-in-out `, 
 					animationDelay: `-${attributes.duration / totalImages * index}s`
 				}}></div>
             ) ) }

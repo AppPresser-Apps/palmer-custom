@@ -28,7 +28,7 @@ export default function save({attributes}) {
                 <div className="hero-slider-image" key={ img.id } style={{
 					backgroundImage: `url(${img.url})`, 
 					height: `${attributes.height}px`, 
-					animation: `imgFade ${attributes.duration}s infinite `, 
+					animation: `imgFade ${attributes.duration}s infinite, kenBurnsEffect 40s infinite ease-in-out `, 
 					animationDelay: `-${attributes.duration / totalImages * index}s`
 				}}></div>
             ) ) }
