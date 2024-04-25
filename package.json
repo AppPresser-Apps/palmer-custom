@@ -8,6 +8,8 @@
 	"scripts": {
 		"start": "wp-scripts start --webpack-src-dir=blocks/src/ --output-path=blocks/build/",
 		"build": "wp-scripts build --webpack-src-dir=blocks/src/ --output-path=blocks/build/",
+		"build:js": "wp-scripts build assets/js/editor-script.js --output-path=assets/build/js/",
+		"build:css": "wp-scripts build assets/css/editor-styles.css --output-path=assets/build/css/",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
