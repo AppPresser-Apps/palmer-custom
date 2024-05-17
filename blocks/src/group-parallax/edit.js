@@ -39,7 +39,6 @@ export default function Edit({ attributes, setAttributes }) {
 	let bgPosition = 0;
 
     const onSelectMedia = ( newImage ) => {
-		console.log(newImage);
         setAttributes({
 			imageID: newImage.id,
 			image: newImage.url

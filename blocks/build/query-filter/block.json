@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "apppresser/query-filter",
+  "version": "0.1.0",
+  "title": "Query Filter",
+  "category": "text",
+  "icon": "category",
+  "description": "Drop down filter for query loop.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "query-filter",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}
