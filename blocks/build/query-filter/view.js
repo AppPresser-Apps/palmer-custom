@@ -53,8 +53,9 @@ let categories = [{
 const response = await fetch('/wp-json/wp/v2/storerestaurantcategory?per_page=100');
 categories = [...categories, ...(await response.json())];
 const urlParams = new URLSearchParams(window.location.search);
+console.log(urlParams);
 const container = document.getElementById('react-select');
-const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container); // createRoot(container!) if you use TypeScript
+const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container);
 root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
   id: "category",
   label: "Filter by Category:",
@@ -64,6 +65,7 @@ root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_comp
     label: renderHTML(category.name)
   })),
   onChange: selectedCategoryID => {
+    console.log(selectedCategoryID);
     var selectedValue = selectedCategoryID;
     if (selectedValue === "none") {
       var currentUrl = window.location.href;

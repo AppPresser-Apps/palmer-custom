@@ -40,7 +40,7 @@ const urlParams = new URLSearchParams(window.location.search);
 console.log(urlParams);
 
 const container = document.getElementById('react-select');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(
     <SelectControl
         id='category'
@@ -51,6 +51,8 @@ root.render(
             label: renderHTML(category.name),
         }))}
         onChange={(selectedCategoryID) => {
+
+            console.log(selectedCategoryID);
       
             var selectedValue = selectedCategoryID;
             if (selectedValue === "none") {
