@@ -37,6 +37,8 @@ categories = [ ...categories, ...await response.json()];
 
 const urlParams = new URLSearchParams(window.location.search);
 
+console.log(urlParams);
+
 const container = document.getElementById('react-select');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
