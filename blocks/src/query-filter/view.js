@@ -21,48 +21,47 @@
  */
 
 import { SelectControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
  
-/* eslint-disable no-console */
-console.log("Hello World! (from create-block-query-filter block)");
-/* eslint-enable no-console */
 
-//const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
+const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
+
+let categories = [{
+    id: 0,
+    slug: 'none',
+    name: 'None'
+}];
 
 const response = await fetch('/wp-json/wp/v2/storerestaurantcategory?per_page=100');
-const categories = await response.json();
-console.log(categories);
+categories = [ ...categories, ...await response.json()];
 
-ReactDOM.render(
+const urlParams = new URLSearchParams(window.location.search);
+
+const container = document.getElementById('react-select');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(
     <SelectControl
+        id='category'
         label="Filter by Category:"
-        value={''}
+        value={urlParams.get('qls') || 'none'}
         options={categories.map((category) => ({
-            value: category.id,
-            label: category.name,
+            value: category.slug,
+            label: renderHTML(category.name),
         }))}
         onChange={(selectedCategoryID) => {
-            console.log(selectedCategoryID);
+      
+            var selectedValue = selectedCategoryID;
+            if (selectedValue === "none") {
+                var currentUrl = window.location.href;
+                var updatedUrl = currentUrl.split("?")[0];
+                window.location.href = updatedUrl;
+            } else {
+                var currentUrl = window.location.href;
+                var urlWithoutQueryParam = currentUrl.split("?")[0];
+                var urlWithQueryParam = urlWithoutQueryParam + (urlWithoutQueryParam.includes("?") ? "?" : "") + "?qls=" + selectedValue;
+                window.location.href = urlWithQueryParam;
+            }
+
         }}
-    />,
-    document.getElementById('react-select')
+    />
 );
-
-function handleSelectChange() {
-    var select = document.getElementById("'react-select");
-    var selectedValue = select.value;
-    if (selectedValue === "none") {
-        var currentUrl = window.location.href;
-        var updatedUrl = currentUrl.split("?")[0];
-        window.location.href = updatedUrl;
-    } else {
-        var currentUrl = window.location.href;
-        var urlWithoutQueryParam = currentUrl.split("?")[0];
-        var urlWithQueryParam = urlWithoutQueryParam + (urlWithoutQueryParam.includes("?") ? "?" : "") + "?qls=" + selectedValue;
-        window.location.href = urlWithQueryParam;
-    }
-
-}
-
-document.getElementById("category").addEventListener("change", handleSelectChange);

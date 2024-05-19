@@ -14,10 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 
 /**
  * Use this file for JavaScript code that you want to run in the front-end 
@@ -43,45 +40,77 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-/* eslint-disable no-console */
-console.log("Hello World! (from create-block-query-filter block)");
-/* eslint-enable no-console */
-
-//const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
-
+const renderHTML = rawHTML => React.createElement("div", {
+  dangerouslySetInnerHTML: {
+    __html: rawHTML
+  }
+});
+let categories = [{
+  id: 0,
+  slug: 'none',
+  name: 'None'
+}];
 const response = await fetch('/wp-json/wp/v2/storerestaurantcategory?per_page=100');
-const categories = await response.json();
-console.log(categories);
-react_dom__WEBPACK_IMPORTED_MODULE_3___default().render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+categories = [...categories, ...(await response.json())];
+const urlParams = new URLSearchParams(window.location.search);
+const container = document.getElementById('react-select');
+const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot)(container); // createRoot(container!) if you use TypeScript
+root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+  id: "category",
   label: "Filter by Category:",
-  value: '',
+  value: urlParams.get('qls') || 'none',
   options: categories.map(category => ({
-    value: category.id,
-    label: category.name
+    value: category.slug,
+    label: renderHTML(category.name)
   })),
   onChange: selectedCategoryID => {
-    console.log(selectedCategoryID);
+    var selectedValue = selectedCategoryID;
+    if (selectedValue === "none") {
+      var currentUrl = window.location.href;
+      var updatedUrl = currentUrl.split("?")[0];
+      window.location.href = updatedUrl;
+    } else {
+      var currentUrl = window.location.href;
+      var urlWithoutQueryParam = currentUrl.split("?")[0];
+      var urlWithQueryParam = urlWithoutQueryParam + (urlWithoutQueryParam.includes("?") ? "?" : "") + "?qls=" + selectedValue;
+      window.location.href = urlWithQueryParam;
+    }
   }
-}), document.getElementById('react-select'));
-function handleSelectChange() {
-  var select = document.getElementById("'react-select");
-  var selectedValue = select.value;
-  if (selectedValue === "none") {
-    var currentUrl = window.location.href;
-    var updatedUrl = currentUrl.split("?")[0];
-    window.location.href = updatedUrl;
-  } else {
-    var currentUrl = window.location.href;
-    var urlWithoutQueryParam = currentUrl.split("?")[0];
-    var urlWithQueryParam = urlWithoutQueryParam + (urlWithoutQueryParam.includes("?") ? "?" : "") + "?qls=" + selectedValue;
-    window.location.href = urlWithQueryParam;
-  }
-}
-document.getElementById("category").addEventListener("change", handleSelectChange);
+}));
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);
+
+/***/ }),
+
+/***/ "./node_modules/react-dom/client.js":
+/*!******************************************!*\
+  !*** ./node_modules/react-dom/client.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var m = __webpack_require__(/*! react-dom */ "react-dom");
+if (false) {} else {
+  var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  exports.createRoot = function(c, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.createRoot(c, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+  exports.hydrateRoot = function(c, h, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.hydrateRoot(c, h, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+}
+
 
 /***/ }),
 
@@ -112,16 +141,6 @@ module.exports = window["ReactDOM"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
-
-/***/ }),
-
-/***/ "@wordpress/data":
-/*!******************************!*\
-  !*** external ["wp","data"] ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["data"];
 
 /***/ })
 

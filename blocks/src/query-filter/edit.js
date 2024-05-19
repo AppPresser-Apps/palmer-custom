@@ -45,18 +45,18 @@ export default function Edit() {
 	return (
 		<div { ...useBlockProps() }>
 			<SelectControl
-				label="Select a category"
+				label="Filter by Category:"
 				value={ selectedCategory }
 				options={ categories.map( ( category ) => ( { value: category.id, label: renderHTML(category.name) } ) ) }
 				onChange={ ( selectedCategoryID ) => { 
 					console.log( selectedCategoryID );
 					setSelectedCategory( selectedCategoryID );
 					// Add category slug as a URL param
-					const categorySlug = categories.find( ( category ) => category.id === parseInt( selectedCategoryID) )?.slug;
+					// const categorySlug = categories.find( ( category ) => category.id === parseInt( selectedCategoryID) )?.slug;
 					
-					const urlParams = new URLSearchParams(window.location.search);
-					urlParams.set('qls', categorySlug);
-					window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
+					// const urlParams = new URLSearchParams(window.location.search);
+					// urlParams.set('qls', categorySlug);
+					// window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
 				} }
 			/>
 		</div>

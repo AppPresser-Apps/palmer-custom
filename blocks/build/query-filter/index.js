@@ -71,7 +71,7 @@ function Edit() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
-    label: "Select a category",
+    label: "Filter by Category:",
     value: selectedCategory,
     options: categories.map(category => ({
       value: category.id,
@@ -81,10 +81,11 @@ function Edit() {
       console.log(selectedCategoryID);
       setSelectedCategory(selectedCategoryID);
       // Add category slug as a URL param
-      const categorySlug = categories.find(category => category.id === parseInt(selectedCategoryID))?.slug;
-      const urlParams = new URLSearchParams(window.location.search);
-      urlParams.set('qls', categorySlug);
-      window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
+      // const categorySlug = categories.find( ( category ) => category.id === parseInt( selectedCategoryID) )?.slug;
+
+      // const urlParams = new URLSearchParams(window.location.search);
+      // urlParams.set('qls', categorySlug);
+      // window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
     }
   }));
 }
