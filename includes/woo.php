@@ -112,3 +112,26 @@ function appp_square_custom_content( ) {
     }
   
 }
+
+add_action('init', function() {
+    if (!function_exists('unregister_block_pattern')) {
+        return;
+    }
+
+    $patterns = WP_Block_Patterns_Registry::get_instance()->get_all_registered();
+    error_log(print_r($patterns,true));
+
+    foreach ($patterns as $pattern) {
+        $categories = $pattern['categories'];
+        if (in_array('woo-commerce', $categories) ) {
+            unregister_block_pattern( $pattern['slug'] );
+        }
+
+        if ( in_array('otter-blocks', $categories ) ) {
+            unregister_block_pattern( $pattern['name'] );
+        }
+    }
+
+
+    
+}, 999);
