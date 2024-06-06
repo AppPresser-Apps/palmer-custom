@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       Apppresser Blocks
- * Description:       AppPresser Blocks is a collection of custom blocks for the WordPress block editor.
+ * Plugin Name:       Palmer Custom
+ * Description:       AppPresser custom code.
  * Requires at least: 6.5
  * Requires PHP:      7.0
  * Version:           1.1.6
@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'APPPRESSER_BLOCKS_DIR', plugin_dir_path( __FILE__ ) );
-define( 'APPPRESSER_BLOCKS_URL', plugins_url( basename( __DIR__ ) ) );
-define( 'APPPRESSER_BLOCKS_SLUG', plugin_basename( __FILE__ ) );
-define( 'APPPRESSER_BLOCKS_FILE', __FILE__ );
+define( 'PALMER_CUSTOM_DIR', plugin_dir_path( __FILE__ ) );
+define( 'PALMER_CUSTOM_URL', plugins_url( basename( __DIR__ ) ) );
+define( 'PALMER_CUSTOM_SLUG', plugin_basename( __FILE__ ) );
+define( 'PALMER_CUSTOM_FILE', __FILE__ );
 
-include_once( APPPRESSER_BLOCKS_DIR . 'includes/woo.php' );
+require_once PALMER_CUSTOM_DIR . 'includes/woo.php';
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -31,12 +31,12 @@ include_once( APPPRESSER_BLOCKS_DIR . 'includes/woo.php' );
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function load_apppresser_blocks_block_init() {
+function load_palmer_custom_block_init() {
 	// Register blocks in the format $dir => $render_callback.
 	$blocks = array(
-		'hero-slider'        => '',
-		'group-parallax'        => '',
-		'query-filter'        => '',
+		'hero-slider'    => '',
+		'group-parallax' => '',
+		'query-filter'   => '',
 	);
 
 	foreach ( $blocks as $dir => $render_callback ) {
@@ -44,25 +44,25 @@ function load_apppresser_blocks_block_init() {
 		if ( ! empty( $render_callback ) ) {
 			$args['render_callback'] = $render_callback;
 		}
-		register_block_type( APPPRESSER_BLOCKS_DIR . '/blocks/build/' . $dir, $args );
+		register_block_type( PALMER_CUSTOM_DIR . '/blocks/build/' . $dir, $args );
 	}
 }
-add_action( 'init', 'load_apppresser_blocks_block_init' );
+add_action( 'init', 'load_palmer_custom_block_init' );
 
 /**
  * Enqueue Editor assets.
  */
-function apppresser_blocks_enqueue_editor_assets() {
-    wp_enqueue_script(
-        'app-blocks-editor-scripts',
-        plugins_url( '/assets/build/js/editor-script.js', __FILE__ )
-    );
-    wp_enqueue_style(
-        'app-blcoks-editor-styles',
-        plugins_url( '/assets/build/css/editor-styles.css', __FILE__ ) 
-    );
+function palmer_custom_enqueue_editor_assets() {
+	wp_enqueue_script(
+		'app-blocks-editor-scripts',
+		plugins_url( '/assets/build/js/editor-script.js', __FILE__ )
+	);
+	wp_enqueue_style(
+		'app-blcoks-editor-styles',
+		plugins_url( '/assets/build/css/editor-styles.css', __FILE__ )
+	);
 }
-add_action( 'enqueue_block_editor_assets', 'apppresser_blocks_enqueue_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'palmer_custom_enqueue_editor_assets' );
 
 
 /**
